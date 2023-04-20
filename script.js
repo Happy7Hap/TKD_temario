@@ -29,7 +29,7 @@ function crearCarta(elemento, index) {
 
   const contenido = document.createElement("div");
   contenido.classList.add("contenido");
-  contenido.textContent = elemento.tipo === "defensa" ? elemento.nombre : elemento.tipo;
+  contenido.textContent = elemento.tipo === "defensa baja" ? elemento.nombre : elemento.tipo;
   carta.appendChild(contenido);
 
   carta.addEventListener("click", () => {
@@ -45,8 +45,8 @@ function crearCarta(elemento, index) {
       bloqueoTablero = true;
       setTimeout(() => {
         if (
-          cartas[primeraCarta.dataset.index].tipo ===
-          cartas[carta.dataset.index].tipo
+          cartas[primeraCarta.dataset.index].nombre ===
+          cartas[carta.dataset.index].nombre
         ) {
           console.log("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
