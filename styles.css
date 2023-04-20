@@ -14,11 +14,6 @@ body {
   grid-gap: 1rem;
 }
 
-#mensaje {
-  margin-top: 20px;
-}
-
-
 .carta {
   width: 100px;
   height: 150px;
@@ -42,10 +37,6 @@ body {
 
 .carta.revelada .contenido {
   display: block;
-}
-
-.carta.esperando {
-  background-color: #999;
 }
 
 .carta.encontrada {
