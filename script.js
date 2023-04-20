@@ -1,7 +1,3 @@
-const tablero = document.getElementById("tablero");
-let primeraCarta = null;
-let bloqueoTablero = false;
-
 const cartas = [
   { nombre: "are maki", tipo: "defensa baja" },
   { nombre: "montong maki", tipo: "defensa media" },
@@ -16,6 +12,7 @@ const cartas = [
 ];
 
 const tablero = document.getElementById("tablero");
+const mensaje = document.getElementById("mensaje");
 let primeraCarta = null;
 let bloqueoTablero = false;
 
@@ -40,25 +37,25 @@ function crearCarta(elemento, index) {
     if (carta.classList.contains("revelada") || bloqueoTablero) {
       return;
     }
-  
+
     carta.classList.add("revelada");
-  
+
     if (primeraCarta === null) {
       primeraCarta = carta;
     } else {
       bloqueoTablero = true;
       setTimeout(() => {
-        const carta1 = cartasDuplicadas[primeraCarta.dataset.index];
-        const carta2 = cartasDuplicadas[carta.dataset.index];
+        const carta1 = cartas[primeraCarta.dataset.index];
+        const carta2 = cartas[carta.dataset.index];
         if (
           (carta1.nombre === carta2.tipo && carta1.tipo === carta2.nombre) ||
           (carta1.tipo === carta2.tipo && carta1.nombre === carta2.nombre)
         ) {
-          console.log("¡Encontraste una pareja!");
+          mostrarMensaje("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
           carta.classList.add("encontrada");
         } else {
-          console.log("No son pareja. Las cartas se ocultarán nuevamente.");
+          mostrarMensaje("No son pareja. Las cartas se ocultarán nuevamente.");
           primeraCarta.classList.remove("revelada");
           carta.classList.remove("revelada");
         }
@@ -67,10 +64,12 @@ function crearCarta(elemento, index) {
       }, 3000);
     }
   });
-  
-
 
   return carta;
+}
+
+function mostrarMensaje(texto) {
+  mensaje.textContent = texto;
 }
 
 // Duplicamos las cartas para tener pares de concepto-definición
@@ -85,3 +84,4 @@ cartasDuplicadas.forEach((elemento, index) => {
   const carta = crearCarta(elemento, index);
   tablero.appendChild(carta);
 });
+
