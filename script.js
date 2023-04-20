@@ -51,8 +51,8 @@ function crearCarta(elemento, index) {
         const carta1 = cartasDuplicadas[primeraCarta.dataset.index];
         const carta2 = cartasDuplicadas[carta.dataset.index];
         if (
-          (carta1.nombre === carta2.nombre && carta1.tipo !== carta2.tipo) ||
-          (carta1.tipo === carta2.tipo && carta1.nombre !== carta2.nombre)
+          (carta1.nombre === carta2.tipo && carta1.tipo === carta2.nombre) ||
+          (carta1.tipo === carta2.tipo && carta1.nombre === carta2.nombre)
         ) {
           console.log("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
@@ -67,6 +67,7 @@ function crearCarta(elemento, index) {
       }, 3000);
     }
   });
+  
 
 
   return carta;
