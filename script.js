@@ -1,3 +1,7 @@
+const tablero = document.getElementById("tablero");
+let primeraCarta = null;
+let bloqueoTablero = false;
+
 const cartas = [
   { nombre: "are maki", tipo: "defensa baja" },
   { nombre: "montong maki", tipo: "defensa media" },
@@ -63,7 +67,6 @@ function crearCarta(elemento, index) {
       }, 3000);
     }
   });
-
 
 
   return carta;
