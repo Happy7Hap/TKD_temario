@@ -44,9 +44,12 @@ function crearCarta(elemento, index) {
     } else {
       bloqueoTablero = true;
       setTimeout(() => {
-        const carta1 = cartas[primeraCarta.dataset.index];
-        const carta2 = cartas[carta.dataset.index];
-        if (carta1.nombre === carta2.tipo || carta1.tipo === carta2.nombre) {
+        const carta1 = cartasMezcladas[primeraCarta.dataset.index];
+        const carta2 = cartasMezcladas[carta.dataset.index];
+        if (
+          (carta1.nombre === carta2.tipo && carta1.tipo === carta2.nombre) ||
+          (carta1.tipo === carta2.tipo && carta1.nombre === carta2.nombre)
+        ) {
           primeraCarta.classList.add("encontrada");
           carta.classList.add("encontrada");
         } else {
@@ -67,6 +70,7 @@ const cartasMezcladas = cartas.reduce((acc, carta) => {
   acc.push({ ...carta, texto: carta.tipo });
   return acc;
 }, []);
+
 barajar(cartasMezcladas);
 
 cartasMezcladas.forEach((elemento, index) => {
