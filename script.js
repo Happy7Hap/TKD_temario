@@ -44,8 +44,8 @@ function crearCarta(elemento, index) {
     } else {
       bloqueoTablero = true;
       setTimeout(() => {
-        const carta1 = cartas[primeraCarta.dataset.index];
-        const carta2 = cartas[carta.dataset.index];
+        const carta1 = cartasDuplicadas[primeraCarta.dataset.index];
+        const carta2 = cartasDuplicadas[carta.dataset.index];
         if (
           (carta1.nombre === carta2.nombre && carta1.tipo !== carta2.tipo) ||
           (carta1.tipo === carta2.tipo && carta1.nombre !== carta2.nombre)
@@ -63,7 +63,7 @@ function crearCarta(elemento, index) {
       }, 3000);
     }
   });
-  
+
 
 
   return carta;
