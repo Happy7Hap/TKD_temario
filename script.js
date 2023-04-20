@@ -1,11 +1,14 @@
 const cartas = [
-  { nombre: "are maki", tipo: "defensa" },
-  { nombre: "upchagui", tipo: "ataque" },
+  { nombre: "are maki", tipo: "defensa baja" },
+  { nombre: "montong maki", tipo: "defensa media" },
   { nombre: "happy", tipo: "semi-dios" },
-  { nombre: "nisaxter", tipo: "god" },
+  { nombre: "montong an maki", tipo: "defensa media cambiada" },
   { nombre: "likio", tipo: "best adc euw" },
-  { nombre: "xavi", tipo: "domadito" },
-  // Añadir 4 cartas más aquí
+  { nombre: "olgul maki", tipo: "defensa alta" },
+  { nombre: "montong b jurugui", tipo: "puño" },
+  { nombre: "olgul b jirugui", tipo: "puño cara" },
+  { nombre: "checho jirugui", tipo: "puño barriga" },
+  { nombre: "montong baro", tipo: "puño distinto" },
 ];
 
 const tablero = document.getElementById("tablero");
@@ -36,7 +39,7 @@ function crearCarta(elemento, index) {
 
     carta.classList.add("revelada");
 
-     if (primeraCarta === null) {
+    if (primeraCarta === null) {
       primeraCarta = carta;
     } else {
       bloqueoTablero = true;
@@ -72,4 +75,3 @@ cartasDuplicadas.forEach((elemento, index) => {
   const carta = crearCarta(elemento, index);
   tablero.appendChild(carta);
 });
-
