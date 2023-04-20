@@ -47,10 +47,7 @@ function crearCarta(elemento, index) {
       setTimeout(() => {
         const carta1 = cartas[primeraCarta.dataset.index];
         const carta2 = cartas[carta.dataset.index];
-        if (
-          (carta1.nombre === carta2.tipo && carta1.tipo === carta2.nombre) ||
-          (carta1.tipo === carta2.tipo && carta1.nombre === carta2.nombre)
-        ) {
+        if (carta1.nombre === carta2.tipo || carta1.tipo === carta2.nombre) {
           mostrarMensaje("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
           carta.classList.add("encontrada");
@@ -72,16 +69,14 @@ function mostrarMensaje(texto) {
   mensaje.textContent = texto;
 }
 
-// Duplicamos las cartas para tener pares de concepto-definición
-const cartasDuplicadas = cartas.reduce((acc, carta) => {
+const cartasMezcladas = cartas.reduce((acc, carta) => {
   acc.push({ ...carta, texto: carta.nombre });
   acc.push({ ...carta, texto: carta.tipo });
   return acc;
 }, []);
-barajar(cartasDuplicadas);
+barajar(cartasMezcladas);
 
-cartasDuplicadas.forEach((elemento, index) => {
+cartasMezcladas.forEach((elemento, index) => {
   const carta = crearCarta(elemento, index);
   tablero.appendChild(carta);
 });
-
