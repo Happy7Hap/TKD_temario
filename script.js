@@ -29,7 +29,7 @@ function crearCarta(elemento, index) {
 
   const contenido = document.createElement("div");
   contenido.classList.add("contenido");
-  contenido.textContent = elemento.tipo === "defensa baja" ? elemento.nombre : elemento.tipo;
+  contenido.textContent = elemento.texto;
   carta.appendChild(contenido);
 
   carta.addEventListener("click", () => {
@@ -44,22 +44,22 @@ function crearCarta(elemento, index) {
     } else {
       bloqueoTablero = true;
       setTimeout(() => {
+        const carta1 = cartas[primeraCarta.dataset.index];
+        const carta2 = cartas[carta.dataset.index];
         if (
-          cartas[primeraCarta.dataset.index].nombre ===
-          cartas[carta.dataset.index].nombre
+          (carta1.nombre === carta2.nombre && carta1.tipo !== carta2.tipo) ||
+          (carta1.tipo === carta2.tipo && carta1.nombre !== carta2.nombre)
         ) {
           console.log("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
           carta.classList.add("encontrada");
-          primeraCarta = null;
-          bloqueoTablero = false;
         } else {
           console.log("No son pareja. Las cartas se ocultarán nuevamente.");
           primeraCarta.classList.remove("revelada");
           carta.classList.remove("revelada");
-          primeraCarta = null;
-          bloqueoTablero = false;
         }
+        primeraCarta = null;
+        bloqueoTablero = false;
       }, 3000);
     }
   });
@@ -68,7 +68,11 @@ function crearCarta(elemento, index) {
 }
 
 // Duplicamos las cartas para tener pares de concepto-definición
-const cartasDuplicadas = cartas.concat(JSON.parse(JSON.stringify(cartas)));
+const cartasDuplicadas = cartas.reduce((acc, carta) => {
+  acc.push({ ...carta, texto: carta.nombre });
+  acc.push({ ...carta, texto: carta.tipo });
+  return acc;
+}, []);
 barajar(cartasDuplicadas);
 
 cartasDuplicadas.forEach((elemento, index) => {
