@@ -22,6 +22,11 @@ function crearCarta(elemento, index) {
   carta.classList.add("carta");
   carta.dataset.index = index;
 
+  const contenido = document.createElement("div");
+  contenido.classList.add("contenido");
+  contenido.textContent = elemento.tipo === "defensa" ? elemento.nombre : "";
+  carta.appendChild(contenido);
+
   carta.addEventListener("click", () => {
     if (carta.classList.contains("revelada")) {
       return; // Si la carta ya está revelada, no hacemos nada.
