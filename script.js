@@ -1,54 +1,58 @@
-const elementos = [
-  { nombre: "are maki", color: "#f54242" },
-  { nombre: "upchagui", color: "#f5a442" },
-  { nombre: "happy", color: "#f5d142" },
-  { nombre: "nisaxter", color: "#d8f542" },
-  { nombre: "likio", color: "#42f5ce" },
-  { nombre: "xavi", color: "#4269f5" },
+const cartas = [
+  { nombre: "are maki", tipo: "defensa" },
+  { nombre: "upchagui", tipo: "ataque" },
+  { nombre: "happy", tipo: "semi-dios" },
+  { nombre: "nisaxter", tipo: "god" },
+  { nombre: "likio", tipo: "best adc euw" },
+  { nombre: "xavi", tipo: "domadito" },
 ];
-
-const cartas = elementos.concat(elementos); // duplicamos las cartas para crear pares
-cartas.sort(() => Math.random() - 0.5); // mezclamos las cartas
 
 const tablero = document.getElementById("tablero");
 let primeraCarta = null;
 
+function barajar(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function crearCarta(elemento, index) {
   const carta = document.createElement("div");
-  carta.className = "carta";
+  carta.classList.add("carta");
   carta.dataset.index = index;
-  carta.style.backgroundColor = elemento.color;
-  carta.textContent = elemento.nombre;
 
-carta.addEventListener("click", () => {
+  carta.addEventListener("click", () => {
     if (carta.classList.contains("revelada")) {
-        return; // Si la carta ya está revelada, no hacemos nada.
+      return; // Si la carta ya estÃ¡ revelada, no hacemos nada.
     }
 
     carta.classList.add("revelada");
-    
+
     if (primeraCarta === null) {
-        primeraCarta = carta;
+      primeraCarta = carta;
     } else if (primeraCarta !== carta) {
-        if (
-            cartas[primeraCarta.dataset.index].nombre ===
-            cartas[carta.dataset.index].nombre
-        ) {
-            console.log("¡Encontraste una pareja!");
-            primeraCarta = null;
-        } else {
-            setTimeout(() => {
-                primeraCarta.classList.remove("revelada");
-                carta.classList.remove("revelada");
-                primeraCarta = null;
-            }, 1000);
-            console.log("No son pareja. Las cartas se ocultarán nuevamente.");
-        }
+      if (
+        cartas[primeraCarta.dataset.index].nombre ===
+        cartas[carta.dataset.index].nombre
+      ) {
+        console.log("Â¡Encontraste una pareja!");
+        primeraCarta = null;
+      } else {
+        setTimeout(() => {
+          primeraCarta.classList.remove("revelada");
+          carta.classList.remove("revelada");
+          primeraCarta = null;
+        }, 1000);
+        console.log("No son pareja. Las cartas se ocultarÃ¡n nuevamente.");
+      }
     }
-});
+  });
 
   return carta;
 }
+
+barajar(cartas);
 
 cartas.forEach((elemento, index) => {
   const carta = crearCarta(elemento, index);
