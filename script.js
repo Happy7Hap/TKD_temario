@@ -12,7 +12,6 @@ const cartas = [
 ];
 
 const tablero = document.getElementById("tablero");
-const mensaje = document.getElementById("mensaje");
 let primeraCarta = null;
 let bloqueoTablero = false;
 
@@ -48,25 +47,19 @@ function crearCarta(elemento, index) {
         const carta1 = cartas[primeraCarta.dataset.index];
         const carta2 = cartas[carta.dataset.index];
         if (carta1.nombre === carta2.tipo || carta1.tipo === carta2.nombre) {
-          mostrarMensaje("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
           carta.classList.add("encontrada");
         } else {
-          mostrarMensaje("No son pareja. Las cartas se ocultarán nuevamente.");
           primeraCarta.classList.remove("revelada");
           carta.classList.remove("revelada");
         }
         primeraCarta = null;
         bloqueoTablero = false;
-      }, 3000);
+      }, 1000);
     }
   });
 
   return carta;
-}
-
-function mostrarMensaje(texto) {
-  mensaje.textContent = texto;
 }
 
 const cartasMezcladas = cartas.reduce((acc, carta) => {
