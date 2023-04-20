@@ -45,8 +45,8 @@ function crearCarta(elemento, index) {
       bloqueoTablero = true;
       setTimeout(() => {
         if (
-          cartas[primeraCarta.dataset.index].nombre ===
-          cartas[carta.dataset.index].nombre
+          cartas[primeraCarta.dataset.index].tipo ===
+          cartas[carta.dataset.index].tipo
         ) {
           console.log("¡Encontraste una pareja!");
           primeraCarta.classList.add("encontrada");
