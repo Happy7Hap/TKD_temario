@@ -5,10 +5,12 @@ const cartas = [
   { nombre: "nisaxter", tipo: "god" },
   { nombre: "likio", tipo: "best adc euw" },
   { nombre: "xavi", tipo: "domadito" },
+  // Añadir 4 cartas más aquí
 ];
 
 const tablero = document.getElementById("tablero");
 let primeraCarta = null;
+let bloqueoTablero = false;
 
 function barajar(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -24,42 +26,14 @@ function crearCarta(elemento, index) {
 
   const contenido = document.createElement("div");
   contenido.classList.add("contenido");
-  contenido.textContent = elemento.tipo === "defensa" ? elemento.nombre : "";
+  contenido.textContent = elemento.tipo === "defensa" ? elemento.nombre : elemento.tipo;
   carta.appendChild(contenido);
 
   carta.addEventListener("click", () => {
-    if (carta.classList.contains("revelada")) {
-      return; // Si la carta ya está revelada, no hacemos nada.
+    if (carta.classList.contains("revelada") || bloqueoTablero) {
+      return;
     }
 
     carta.classList.add("revelada");
 
-    if (primeraCarta === null) {
-      primeraCarta = carta;
-    } else if (primeraCarta !== carta) {
-      if (
-        cartas[primeraCarta.dataset.index].nombre ===
-        cartas[carta.dataset.index].nombre
-      ) {
-        console.log("¡Encontraste una pareja!");
-        primeraCarta = null;
-      } else {
-        setTimeout(() => {
-          primeraCarta.classList.remove("revelada");
-          carta.classList.remove("revelada");
-          primeraCarta = null;
-        }, 1000);
-        console.log("No son pareja. Las cartas se ocultarán nuevamente.");
-      }
-    }
-  });
-
-  return carta;
-}
-
-barajar(cartas);
-
-cartas.forEach((elemento, index) => {
-  const carta = crearCarta(elemento, index);
-  tablero.appendChild(carta);
-});
+    if (
