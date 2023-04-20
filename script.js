@@ -36,4 +36,40 @@ function crearCarta(elemento, index) {
 
     carta.classList.add("revelada");
 
-    if (
+     if (primeraCarta === null) {
+      primeraCarta = carta;
+    } else {
+      bloqueoTablero = true;
+      setTimeout(() => {
+        if (
+          cartas[primeraCarta.dataset.index].nombre ===
+          cartas[carta.dataset.index].nombre
+        ) {
+          console.log("¡Encontraste una pareja!");
+          primeraCarta.classList.add("encontrada");
+          carta.classList.add("encontrada");
+          primeraCarta = null;
+          bloqueoTablero = false;
+        } else {
+          console.log("No son pareja. Las cartas se ocultarán nuevamente.");
+          primeraCarta.classList.remove("revelada");
+          carta.classList.remove("revelada");
+          primeraCarta = null;
+          bloqueoTablero = false;
+        }
+      }, 3000);
+    }
+  });
+
+  return carta;
+}
+
+// Duplicamos las cartas para tener pares de concepto-definición
+const cartasDuplicadas = cartas.concat(JSON.parse(JSON.stringify(cartas)));
+barajar(cartasDuplicadas);
+
+cartasDuplicadas.forEach((elemento, index) => {
+  const carta = crearCarta(elemento, index);
+  tablero.appendChild(carta);
+});
+
